@@ -2,10 +2,10 @@ import json
 import Patterns
 import config_st
 import database_interaction
-import User
+import USER
 import re 
 from re import findall
-database_file=open("database.txt","r+")
+database_file=open("data_base.txt","r+")
 dict_n=json.load(database_file)
 
 
@@ -21,58 +21,62 @@ def sign_up():
     def enter_ur_name():
      name=input("step1/4----enter ur full name ")
      i=0
-     while(len(name)==0 or name==" ") :
+     while(len(name.strip())==0) :
+         if i==config_st.MAX_INPUT:
+            break
          name=input("ur input is empety enter your name again")
-        
          i=i+1
-         if i==config_st.Max_input:
-             fun()
+     if (i==config_st.MAX_INPUT):
+        fun()   
      return name
-            
+    ####################################################################      
     def enter_ur_birth_date():
      birth_date=input("step 2/4-----enter ur birth date")
      i=0
-     while(len(birth_date)==0 or birth_date==" "):
+     while(len(birth_date.strip())==0):
+         if i==config_st.MAX_INPUT:
+            break
          birth_date=input("ur input is empety enter your birthdate again")
-        
          i=i+1
-         if i==config_st.Max_input:
-            fun()
+     if (i==config_st.MAX_INPUT):
+        fun()  
      while(len(re.findall(Patterns.pattern_birthdate,birth_date))==0):
          birth_date=input("ur birth date is invalid enter ur birth date again")
      return birth_date
+     #####################################################################
     def enter_ur_email():
      email=input("step 3/4-----enter ur email")
      i=0
-     while(len(email)==0 or email==" "):
+     while(len(email.strip())==0 ):
+         if i==config_st.MAX_INPUT:
+             break
          email=input("ur input is empety enter your email again")
-        
          i=i+1
-         if i==config_st.Max_input:
-             fun()
+     if i==config_st.MAX_INPUT:
+        fun()
+     while(len(re.findall(Patterns.pattern_email,email))==0):
+         email=input("ur email is invaled enter your email again")
      for i in dict_n:
       if i==email:
          while(len(email)==0 or email==i):
              email=input("enter ur email")
-     while(len(re.findall(Patterns.pattern_email,email))==0):
-         email=input("ur email is invaled enter your email again")
      return email
-
-        
+    #######################################################################
     def enter_ur_password():
      password=input("step 4/4-----enter ur password")
      i=0
-
-     while(len(password)==0):
+     while(len(password.strip())==0):
+         if i==config_st.MAX_INPUT:
+             break
          password=input("ur input is empety enter your password again")
-        
          i=i+1
-         if i==config_st.Max_input:
-             fun()
+     if i==config_st.MAX_INPUT==0:
+        fun()
      while(len(re.findall(Patterns.pattern_password,password))==0):
          password=input("ur password is invalid enter your password again")
      return password
-    u=User.User(enter_ur_name(),enter_ur_birth_date(),enter_ur_email(),enter_ur_password())
+     ########################################################################
+    u=USER.User(enter_ur_name(),enter_ur_birth_date(),enter_ur_email(),enter_ur_password())
     database_interaction.write(u)
     logged_in()
     
@@ -89,9 +93,9 @@ def fun():
      sign_up()
      
  else:
-     print("good bye")
+     print("ur exit now (<!0!>)")
+     exit()
 fun()
-exit()
 
 
 

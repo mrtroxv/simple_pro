@@ -1,1 +1,1 @@
-Max_input=2
+MAX_INPUT=2
