@@ -3,17 +3,67 @@ import Patterns
 import config_st
 import database_interaction
 import USER
+import LOGIN_VALIDATION
 import re 
+import hashlib
 from re import findall
 database_file=open("data_base.txt","r+")
 dict_n=json.load(database_file)
+
+def fun():
+ print ("----Home Page----\na.login\nb.signup\nc.exit")
+ inp1=input("please select the charracter")
+ if inp1=='a':
+     log_in()
+ elif inp1=='b':
+     sign_up()
+     
+ else:
+     print("ur exit now (<!0!>)")
+     exit()
 
 
 def logged_in():
     print("succes")
 
+
 def log_in():
-    print("login page")
+    print("-----Login Page-----")
+    def email_input():
+        i=0
+        email=input("Please Enter ur Email")
+        while len(email.strip())==0:
+            if i==config_st.MAX_INPUT:
+                break
+            email=input("enter ur email again!")
+            i=i+1
+        if i==config_st.MAX_INPUT:
+            fun()
+        return email
+    
+    def password_input():
+        i=0
+        password=input("Please Enter ur Password")
+        while len(password.strip())==0:
+            if i==config_st.MAX_INPUT:
+                break
+            password=input("enter ur password again!")
+            i=i+1
+        if i==config_st.MAX_INPUT:
+            fun()
+        return password
+    j=0
+    while LOGIN_VALIDATION.is_valid(email_input(),password_input())==False and j!=config_st.MAX_INPUT:
+        j=j+1
+        print("ur emial or password no vaild please try again")
+        
+    if(j==config_st.MAX_INPUT):
+        fun()
+    else:
+        logged_in()
+
+
+              
 def sign_up():
    
     print("=====signup page=====")
@@ -79,22 +129,8 @@ def sign_up():
     u=USER.User(enter_ur_name(),enter_ur_birth_date(),enter_ur_email(),enter_ur_password())
     database_interaction.write(u)
     logged_in()
-    
-    
 
 
-def fun():
- print ("----Home Page----\na.login\nb.signup\nc.exit")
- inp1=input("please select the charracter")
- if inp1=='a':
-     log_in()
-     fun()
- elif inp1=='b':
-     sign_up()
-     
- else:
-     print("ur exit now (<!0!>)")
-     exit()
 fun()
 
 
