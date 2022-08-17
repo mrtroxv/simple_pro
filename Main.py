@@ -167,4 +167,5 @@ def main():
         logged_in(Session.email, Session.password, Session.name)
 
 
-main()
+if __name__ == "__main__":
+    main()
