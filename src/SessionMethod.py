@@ -1,4 +1,4 @@
-import Session
+from src import Session
 def clear():
     Session.email = ""
     Session.password = ""

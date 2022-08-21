@@ -3,7 +3,7 @@ email = ""
 password = ""
 name = ""
 birthdate = ""
-session_file = open("session.json", "r+")
+session_file = open("src\session.json", "r+")
 dict_session = {}
 dict_session_empty = {}
 

@@ -1,8 +1,8 @@
 import json
-import DateCalculation
-import DateCalculationFrinde
-import Session
-database_file = open("database.json", "r+")
+from src import DateCalculation
+from src import DateCalculationFrinde
+from src import Session
+database_file = open("src\database.json", "r+")
 birt_date = ""
 fri_dict = {}
 sorted_dict = []

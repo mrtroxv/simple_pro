@@ -1,7 +1,7 @@
 import json
 import hashlib
-import DatabaseInteraction
-database_file = open("database.json","r+")
+from src import DatabaseInteraction
+database_file = open("src\database.json","r+")
 if DatabaseInteraction.dict_n == {}:
     DatabaseInteraction.dict_n = json.load(database_file)
 

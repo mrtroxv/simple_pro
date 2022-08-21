@@ -1,8 +1,9 @@
-import User
+from src import User
 import json
 import hashlib
-dict_n = {}
-database_file = open("database.json", "r+")
+database_file = open("src/database.json", "r+")
+dict_n=json.load(database_file)
+
 
 
 def write(u):

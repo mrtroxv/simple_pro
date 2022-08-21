@@ -1,16 +1,18 @@
 import json
 from logging import exception
-import Patterns
-import Session
-import ConfigSt
-import DatabaseInteraction
-import User
-import SessionMethod
-import EmailValidation
-import BirthdayProcess
-import LoginValidation
+from wsgiref import validate
+from src import Patterns
+from src import Session
+from src import ConfigSt
+from src import DatabaseInteraction
+from src import User
+from src import SessionMethod
+from src import EmailValidation
+from src import BirthdayProcess
+from src import LoginValidation
+from src.Validate import is_validate_bithdate, is_validate_email, is_validate_name, is_validate_password
 import re
-database_file = open("database.json", "r+")
+database_file = open("src\database.json", "r+")
 
 
 def HomePage():
@@ -101,7 +103,7 @@ def sign_up():
     def enter_ur_name() -> str:
         name = input("step1/4----enter ur full name: ")
         i = 0
-        while(len(name.strip()) == 0):
+        while is_validate_name(name):
             if i == ConfigSt.MAX_INPUT:
                 raise Exception("sorry'too much trials")
                 break
@@ -114,7 +116,7 @@ def sign_up():
     def enter_ur_birth_date():
         birth_date = input("step 2/4-----enter ur birth date")
         i = 0
-        while len(birth_date.strip()) == 0 or re.fullmatch(Patterns.pattern_birthdate, birth_date, flags=0) is None:
+        while is_validate_bithdate(birth_date):
             if i == ConfigSt.MAX_INPUT:
                 raise Exception(
                     "sorry'too much trials or birthdate not formated")
@@ -128,7 +130,7 @@ def sign_up():
     def enter_ur_email():
         email = input("step 3/4-----enter ur email")
         i = 0
-        while(len(email.strip()) == 0 or re.findall(Patterns.pattern_email, email) is None or EmailValidation.email_check(email)):
+        while is_validate_email(email):
             if i == ConfigSt.MAX_INPUT:
                 raise Exception("Error to many trial or ur email is exist")
                 break
@@ -141,7 +143,7 @@ def sign_up():
     def enter_ur_password():
         password = input("step 4/4-----enter ur password: ")
         i = 0
-        while(len(password.strip()) == 0 or re.fullmatch(Patterns.pattern_password, password) is None):
+        while is_validate_password(password):
             if i == ConfigSt.MAX_INPUT:
                 raise Exception("password is not formated or empety")
                 break
